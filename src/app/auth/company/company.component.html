@@ -1,0 +1,93 @@
+<div fxLayoutGap="1em">
+  <nb-card accent="primary">
+    <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+      <h4>
+        Company
+      </h4>
+    </nb-card-header>
+    <nb-card-body *ngIf="companyCreated; else createCompany" fxLayout="row" fxLayout.md="row" fxLayoutAlign="center center" fxLayout.sm="column" fxLayoutGap="20px">
+
+        <form fxFlex="60%" [formGroup]="company" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="15px">
+          <input formControlName="name" nbInput fullWidth fieldSize="medium" placeholder="Company name">
+          <input formControlName="website" nbInput fullWidth fieldSize="medium" placeholder="Company website">
+          <textarea rows="5" formControlName="summary" nbInput fullWidth placeholder="Summary"></textarea>
+          <nb-select id="country" size="large" placeholder="All countries" fullWidth formControlName="country"
+                      (change)="changeCountry($event)">
+            <nb-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</nb-option>
+          </nb-select>
+
+          <input formControlName="contact" nbInput fullWidth fieldSize="medium" placeholder="Company contact">
+          <button [disabled]="company.invalid && !companyDataChanged" nbButton type="submit">Update</button>
+        </form>
+
+      <div fxFlex="40%" fxLayoutAlign="center center" fxLayout="column">
+        <img class="company-img" src="../../../assets/img/Launch.png" alt="Launch">
+        <h6 class="company-message">Hurray to the company</h6>
+
+        <p class="text-center">You can update the company to your liking</p>
+      </div>
+    </nb-card-body>
+
+    <ng-template #createCompany>
+      <nb-card-body>
+        <h6 class="text-success">
+          You haven't created a company yet...
+        </h6>
+        <p>Please create a company to post a job</p>
+
+        <a [routerLink]="[ '/create-company']" nbButton status="primary">Create one</a>
+      </nb-card-body>
+    </ng-template>
+
+  </nb-card>
+</div>
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayoutGap="1em">
+  <nb-card fxFlex="60%" accent="danger">
+    <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+      <h4>
+        Members
+      </h4>
+    </nb-card-header>
+    <nb-card-body>
+      <p>Members go here</p>
+
+    </nb-card-body>
+  </nb-card>
+  <nb-card fxFlex="40%" accent="primary">
+    <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+      <h4>
+        Jobs Advertised.
+      </h4>
+      <nb-actions *ngIf="companyCreated">
+        <nb-action>
+          <nb-icon nbPopoverTrigger="click" nbPopover="Add new job" icon="file" status="warning" (click)="createJob()"></nb-icon>
+        </nb-action>
+      </nb-actions>
+    </nb-card-header>
+    <nb-card-body>
+      <nb-list>
+        <nb-list-item *ngFor="let job of companyJobs" nbPopoverAdjustment="noop" [nbPopover]="applicationActions">
+          <nb-user [name]="job.title" [title]="job.type">
+          </nb-user>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<ng-template #applicationActions>
+  <nb-card class="margin-bottom-0">
+    <nb-card-header>
+      Choose action
+    </nb-card-header>
+    <nb-list>
+      <nb-list-item>
+        Edit job
+      </nb-list-item>
+      <nb-list-item>
+        View applicants
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
+</ng-template>
+

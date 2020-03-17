@@ -1,0 +1,14 @@
+:host div:first-of-type {
+	width: 80%;
+	display: flex;
+	justify-content: flex-start;
+}
+
+li {
+  list-style: none;
+}
+
+:host {
+	position: relative;
+	z-index: 9999;
+}

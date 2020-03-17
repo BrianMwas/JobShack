@@ -1,0 +1,46 @@
+<ng-container *ngIf="loadingUser | async; else userLoaded">
+	<div class="center">
+		<div class="loading radar"></div>
+	</div>
+</ng-container>
+<ng-template #userLoaded>
+	<div fxLayout="column" class="container">
+			<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="row" fxLayoutGap="1em">
+				<ng-container *ngIf="loadingProfile | async; else profileLoaded">
+					<div class="center">
+						<div class="loading radar"></div>
+					</div>
+				</ng-container>
+				<ng-template #profileLoaded>
+					<nb-card fxFlex="50%" accent="info">
+					<nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+						<h6>
+						Profile
+						</h6>
+					</nb-card-header>
+					<nb-card-body fxLayout="column">
+						<div nbPopoverTrigger="hover" nbPopover="Upload your image"  class="rounded" fxLayout="column" fxLayoutAlign="center">
+					</div>
+				
+						<form [formGroup]="pForm" fxLayout="column" fxLayoutGap="20px" (ngSubmit)="updateProfile()">
+							
+							<input formControlName="username" fullWidth size="medium" type="text" nbInput  placeholder="Username">
+							<textarea formControlName="description" fullWidth size="medium" placeholder="Your description" rows="4"></textarea>
+							<input formControlName="telephone" fullWidth size="medium" type="text" nbInput  placeholder="Telephone">
+							<button [disabled]="profileChanged == false" type="submit" nbButton status="info">Update</button>
+						</form>
+					</nb-card-body>
+					</nb-card>
+				</ng-template>
+			</div>
+			<div *ngIf="userProfile.role == 'seeker'; else employer">
+				<app-profile [profile]="userProfile"></app-profile>
+			</div>
+			<ng-template #employer>
+				<app-company></app-company>
+			</ng-template>
+	
+	</div> 
+</ng-template>
+
+

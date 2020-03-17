@@ -1,0 +1,99 @@
+
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayoutGap="1em">
+  <nb-card fxFlex="50%" accent="primary">
+    <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+      <h6>
+        Qualifications
+      </h6>
+      <nb-actions>
+        <nb-action>
+          <nb-icon nbPopoverTrigger="hover" nbPopover="Add qualification" status="primary" (click)="addQualification()"
+            icon="plus"></nb-icon>
+        </nb-action>
+
+        <nb-action status="primary">
+          <nb-icon [nbPopover]="fileUpload" nbPopoverPlacement="top" icon="cloud-upload-outline"></nb-icon>
+        </nb-action>
+      </nb-actions>
+      <ng-template #fileUpload>
+        <nb-card>
+          <nb-card-header>
+            <h6>Upload resume</h6>
+          </nb-card-header>
+          <nb-card-body>
+            <form>
+              <input type="file" fullWidth nbInput fieldSize="medium">
+              <button type="submit" nbButton>Upload</button>
+            </form>
+          </nb-card-body>
+        </nb-card>
+      </ng-template>
+    </nb-card-header>
+    <nb-card-body>
+      <form *ngIf="qualifications.length > 0; else addNewQualification" #qualificationForm="ngForm" (ngSubmit)="logValues()">
+        <section class="my-3" *ngFor="let quality of qualifications; let i = index;">
+          <input name="id_{{i}}" type="hidden" [(ngModel)]="quality._id">
+          <nb-select name="qualificationType_{{i}}" [(ngModel)]="quality.qualificationType" fullWidth
+            placeholder="Qualification">
+            <nb-option value="Education">Education</nb-option>
+            <nb-option value="Work Experience">Experience</nb-option>
+            <nb-option value="Seminars and Activations">Seminars</nb-option>
+          </nb-select>
+          <input name="institute_{{i}}" type="text" [(ngModel)]="quality.institute" nbInput fullWidth placeholder="Institute">
+          <input name="startDate_{{i}}" [(ngModel)]="quality.startDate" fullWidth nbInput [nbDatepicker]="startDate"
+            placeholder="Start date">
+          <nb-datepicker [min]="min" [max]="max" #startDate></nb-datepicker>
+          <input name="endDate_{{i}}" [(ngModel)]="quality.endDate" fullWidth nbInput [nbDatepicker]="endDate"
+            placeholder="End date">
+          <nb-datepicker [min]="quality.start" [max]="max" #endDate></nb-datepicker>
+
+          <!-- <input [nbDatepicker]="datepicker">
+				<nb-datepicker #datepicker></nb-datepicker> -->
+          <textarea name="description_{{i}}" [(ngModel)]="quality.description" fullWidth name="qualificationDescription"
+            id="qd" rows="7" nbInput placeholder="Description"></textarea>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <button type="submit" (click)="updateQualification(i)" nbButton status="success">Update</button>
+            <!-- <button nbButton status="danger" (click)="removeQualification(i)">Remove</button> -->
+          </div>
+        </section>
+      </form>
+      <ng-template #addNewQualification>
+        <div fxLayoutAlign="center" fxLayout="column" class="my-3 text-center">
+          <h6>You have not set up any qualifications yet</h6>
+          <button nbButton status="success" (click)="addQualification()">Add New</button>
+        </div>
+      </ng-template>
+    </nb-card-body>
+  </nb-card>
+  <nb-card fxFlex="50%" accent="info" style="height: max-content">
+    <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+      <h6>
+        My Applications
+      </h6>
+      <nb-actions>
+        <nb-action>
+          <nb-icon icon="arrow-right-outline" nbPopoverTrigger="hover" nbPopover="Find more jobs" (click)="goHome()"></nb-icon>
+        </nb-action>
+      </nb-actions>
+    </nb-card-header>
+    <nb-card-body>
+      <nb-list>
+        <nb-list-item *ngFor="let app of userData.applications">
+
+          <nb-user [name]="app.job.title" [title]="app.status">
+          </nb-user>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+  </nb-card>
+  <!-- <nb-card fxFlex="50%" accent="secondary">
+	    <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+	      <h4>
+	        Advertised Jobs
+	      </h4>
+	    </nb-card-header>
+	    <nb-card-body>
+
+	    </nb-card-body>
+	  </nb-card> -->
+</div>

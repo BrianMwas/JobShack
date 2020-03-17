@@ -1,0 +1,99 @@
+
+.nav {
+    position: relative;
+
+    .tSideBarBtn {
+        height: auto;
+        width: auto;
+        padding: 0 .75em 0 0;
+
+        a svg {
+          height: 1em;
+          width: 1em;
+        }
+    }
+
+    .nav-actions {
+        position: absolute;
+        right: 0;
+        top: 1.125em;
+    }
+
+    .font-weight-md {
+        font-weight: 100;
+    }
+    
+    ul {
+        display: inline-block;
+
+
+        li {
+            list-style-type: none;
+            position: relative;
+            height: 100%;
+            padding: 1.5em 1em;
+            transition: background-color 150ms ease-out;
+            &:hover {
+                background-color: rgba(0, 0, 0, .25);
+            }
+        }
+
+        li:not(:last-of-type) {
+            margin-right: 1.3em;
+        }
+
+        li:first-of-type {
+            padding: 1em .5em;
+            
+            &:hover {
+                background-color: transparent;
+
+                a {
+                    color: red;
+                }
+            }
+        }
+
+        li:nth-child(6), li:nth-child(7) {
+           position: relative;
+
+           .active {
+               color: #635d9e;
+               font-weight: 700;
+           }
+
+           &::before {
+               position: absolute;
+               display: block;
+               content: "";
+               bottom: 0px;
+               right: 0px;
+               height: 5px;
+               width: 0%;
+               border-radius: 5px;
+               background-color: rgb(8, 165, 60);
+               transition: all ease-in 250ms;
+           }
+        }
+
+        li:nth-child(6):hover, li:nth-child(7):hover {
+            &::before {
+                width: 100%;
+            }
+        }
+
+        li a {
+            text-decoration: none;
+            font-weight: 500;
+        }
+    }
+}
+
+
+
+
+.search {
+    position: relative;
+    right: -68rem;
+    top: .55em;
+}

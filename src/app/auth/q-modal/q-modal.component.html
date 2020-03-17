@@ -1,0 +1,53 @@
+<nb-card>
+	<nb-card-header>
+		Add new qualification
+	</nb-card-header>
+	<nb-card-body>
+		<form [formGroup]="qForm"  (ngSubmit)="onSubmit()">
+			<div>
+				<nb-select formControlName="qualificationType" fullWidth
+            		placeholder="Qualification">
+	            <nb-option value="Education">Education</nb-option>
+	            <nb-option value="Work Experience">Experience</nb-option>
+	            <nb-option value="Seminars and Activations">Seminars</nb-option>
+          	</nb-select>
+          	<error-message [control]="qError.qualificationType" *ngIf="submitted"></error-message>
+			</div>
+
+			<!-- <div>
+				<input type="text" formControlName="institute" fullWidth nbInput placeholder="Institute or company">
+				<error-message [control]="qError.institute *ngIf="submitted"></error-message>
+			</div> -->
+
+			<div>
+				<input type="text" placeholder="Institute or company" fullWidth nbInput formControlName="institute"> 
+				<error-message [control]="qError.institute" *ngIf="submitted"></error-message>
+			</div>
+			
+			<div>
+				<input formControlName="startDate" fullWidth nbInput [nbDatepicker]="startDate"
+            		placeholder="Start date">
+          		<nb-datepicker [min]="min" [max]="max" #startDate></nb-datepicker>
+          		<error-message [control]="qError.startDate" *ngIf="submitted"></error-message>
+			</div>
+          
+
+			<div>
+				<input formControlName="endDate" fullWidth nbInput [nbDatepicker]="endDate"
+            		placeholder="Start date">
+          		<nb-datepicker [min]="min" [max]="max" #endDate></nb-datepicker>
+          		<error-message [control]="qError.endDate" *ngIf="submitted"></error-message>
+			</div>
+          
+			<div>
+          		<textarea formControlName="description" fullWidth rows="7" nbInput placeholder="Description"></textarea>
+          		<error-message [control]="qError.description" *ngIf="submitted"></error-message>
+			</div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between">
+          	<button type="submit" nbButton>Save</button>
+            <button nbButton status="danger" (click)="cancel()">cancel</button>
+          </div>
+		</form>
+	</nb-card-body>
+</nb-card>

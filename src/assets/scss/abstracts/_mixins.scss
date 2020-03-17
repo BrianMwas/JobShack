@@ -1,0 +1,31 @@
+
+
+@mixin content-margins($selector: '> *', $last-child: false) {
+  @if not $selector {
+    $selector : '&'
+  }
+
+  #{unquote($selector)} {
+    &:first-child { margin-top: 0; }
+
+    @if $last-child {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Hide visually from screenreader and browser
+@mixin hidden {
+  display: none;
+  visibility: hidden;
+}

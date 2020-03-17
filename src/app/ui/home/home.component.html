@@ -1,0 +1,70 @@
+<div class="container">
+	<nb-card>
+		<nb-card-header>
+			<h3>
+        Filter
+			</h3>
+		</nb-card-header>
+		<nb-card-body class="w-100">
+			<form  fxLayout="row" fxLayout.md="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center" fxLayoutGap="20px" [formGroup]="categories" (ngSubmit)="onSubmit()">
+				<nb-select size="large" placeholder="All countries" fullWidth formControlName="country" (change)="changeCountry($event)">
+					<nb-option  *ngFor="let country of countries" [value]="country.name">{{country.name}}</nb-option>
+				</nb-select>
+				<nb-select size="large" placeholder="All industries" fullWidth formControlName="industry" (change)="changeIndustry($event)">
+					<nb-option  *ngFor="let industry of industries" [value]="industry.name">{{industry.name}}</nb-option>
+				</nb-select>
+				<nb-select size="large" placeholder="All Types" fullWidth formControlName="jobtype" (change)="changeJobType($event)">
+					<nb-option  *ngFor="let type of jobtypes" [value]="type.name">{{type.name}}</nb-option>
+				</nb-select>
+				<button nbButton status="success" type="submit">Search</button>
+			</form>
+		</nb-card-body>
+	</nb-card>
+	<div fxLayout="row"  fxLayoutAlign="space-between" class="my-5">
+		<div fxFlex.lg="60%" fxFlex.sm="100%" fxFlex.md="100%">
+			<h4>All</h4>
+			<ng-container class="center" *ngIf="loadingJobs | async; else jobsLoaded">
+				<div class="loading radar"></div>
+			</ng-container>
+			<ng-template #jobsLoaded>
+				
+				<div *ngIf="allJobs">
+					<app-joblist [jobs]="allJobs | paginate:{itemsPerPage: 2, currentPage:p}"></app-joblist>
+				</div>
+				<div id="pagination">
+					<pagination-controls (pageChange)="p=$event"></pagination-controls>
+				</div>   
+				<div *ngIf="allJobs.length <= 0">
+					<h6>No jobs posted yet</h6>
+				</div>
+			</ng-template>
+			
+		</div>
+
+		<div class="resume" fxHide.lt-md fxFlex="40%">
+			<h4>Resume`s</h4>
+			<nb-card>
+				<nb-card-header>
+					<h5 >
+						Resume` touch up.
+					</h5>
+				</nb-card-header>
+				<nb-card-body fxFlexLayout="column">
+					<div class="reviewBg"></div>
+					<h6 class="text-center">Get a cv touch up from an experienced interviewer</h6>
+					<a href="http://resume.io" target="_blank" rel="noopener noreferrer" nbButton fullWidth status="primary">Go to</a>
+				</nb-card-body>
+			</nb-card>
+		</div>
+	</div>
+
+	<!-- <div class="loading radar"></div> -->
+
+	<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="25px" style="margin: 15px 0">
+		<h3 class="text-center relative border-b">Subscribe to get job alerts</h3>
+		<form fxLayout="row" fxLayout.sm="column" fxLayout.md="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="25px" [formGroup]="emailForm" (ngSubmit)="subscribe()">
+			<input nbInput fieldSize="large" formControlName="email" fullWidth type="email" placeholder="Email">
+			<button nbButton status="info" type="submit">Subscribe</button>
+    	</form>
+	</div>
+</div>

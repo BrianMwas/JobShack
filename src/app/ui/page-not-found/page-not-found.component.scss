@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+        object-fit: contain;
+        object-position: center center;
+        width: 80%;
+        height: 40vh;
+    }
+
+    p {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        text-align: center;
+    }
+}

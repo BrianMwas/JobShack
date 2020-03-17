@@ -1,0 +1,72 @@
+    <div class="container" *ngIf="job else noJob">
+        <nb-alert status="warning" *ngIf="jobApplied" closeable>
+          You already applied for this job
+        </nb-alert>
+        <nb-card>
+          <nb-card-header>
+            <button status="warning" (click)="goback()" nbButton size="tiny">go back</button>
+          </nb-card-header>
+          <nb-card-body>
+            <h4>{{ job.company.name }}</h4>
+            <h6 style="margin: auto">{{ job.company.country }} | {{ job.company.website }}</h6>
+            <p>{{ job.company.summary }}</p>
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <nb-card-header>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <h2>{{ job.title }}</h2>
+            </div>
+            <small><span class="text-primary">{{ job.applications.length }}</span> application(s) made</small>
+          </nb-card-header>
+          <nb-card-body>
+            <div class="summary">
+                <h4>Summary</h4>
+                <p> {{  job.summary }}</p>
+            </div>
+
+            <div class="description">
+                <h4>Description</h4>
+                <p>{{job.description}}</p>
+            </div>
+          </nb-card-body>
+
+          <nb-card-footer>
+            <div class="actions">
+                <button
+                *ngIf="!loggedIn | async"
+                nbTooltopStatus="secondary"
+                nbTooltipTrigger="hover"
+                nbTooltipIcon="alert-triangle-outline"
+                nbButton status="success"
+                size="medium"
+                (click)="gotoLogin()">Please log in to apply</button>
+                <button
+                *ngIf="loggedIn && accessChecker.isGranted('apply', 'jobdetail')"
+                nbButton
+                fullWidth
+                size="large"
+                [disabled]="jobApplied"
+                (click)="applyJob()"
+
+                >Apply</button>
+                <small class="text-danger">Easy Apply</small>
+            </div>
+          </nb-card-footer>
+        </nb-card>
+        <!-- <div class="name">
+            <h2>{{ job.title }}</h2>
+            <p>{{job.company.name}} {{ job.country }}</p>
+            <small><span class="text-primary">{{ job.applications.length }}</span> application(s) made</small>
+        </div> -->
+
+
+
+    </div>
+
+    <ng-template #noJob>
+        <div fxLayout="column" fxLayoutAlign="center | center" fxLayoutGap="50px">
+            <div class="job"></div>
+            <h2 class="text-center">Job not found</h2>
+        </div>
+    </ng-template>

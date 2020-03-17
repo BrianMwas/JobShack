@@ -1,0 +1,22 @@
+.company-img {
+    object-fit: contain;
+    height: 180px;
+    width: 180px;
+    object-position: center center;
+}
+
+.company-message {
+  position: relative;
+  margin: 15px;
+
+  &::after {
+    content: "";
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    height: 4px;
+    background-color: white;
+    margin: 1em auto;
+  }
+}

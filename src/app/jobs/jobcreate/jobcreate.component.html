@@ -1,0 +1,51 @@
+
+<nb-card accent="success" *ngIf="accessChecker.isGranted('createjob', 'updatejob'); else regularUser">
+	<nb-card-header>
+		<h2>Post new Job</h2>
+	</nb-card-header>
+	<nb-card-body>
+		<form [formGroup]="jobf" (ngSubmit)="saveJob()">
+			<div class="form-input" fxLayout="row" fxLayout.sm="column-reverse" fxLayoutGap="10px">
+				<input formControlName="title"  name="title" type="text" placeholder="Job title" nbInput fullWidth fieldSize="large">
+			</div>
+
+			<div class="form-input" fxLayout="row" fxLayout.sm="column-reverse" fxLayoutGap="10px">
+				<textarea formControlName="summary" fullWidth nbInput placeholder="Job Summary" rows="4"></textarea>
+			</div>
+
+			<div class="form-input" fxLayout="column" fxLayoutGap="20px">
+				<nb-select formControlName="country" (change)="changeCountry($event)" fullWidth size="large"
+				  placeholder="Countries">
+					<nb-option  *ngFor="let country of countries" [value]="country.name">{{country.name}}</nb-option>
+				</nb-select>
+				<nb-select formControlName="industry" (change)="changeIndustry($event)" fullWidth size="large" placeholder="Industry">
+					<nb-option  *ngFor="let industry of industries" [value]="industry.name">{{industry.name}}</nb-option>
+				</nb-select>
+				<nb-select formControlName="type" (change)="changeJobType($event)" fullWidth size="large" placeholder="Job Type">
+					<nb-option  *ngFor="let type of jobtypes" [value]="type.name">{{type.name}}</nb-option>
+				</nb-select>
+			</div>
+
+			<div class="form-input">
+				<textarea placeholder="Job description" nbInput fullWidth formControlName="description" rows="5"></textarea>
+			</div>
+			<button nbButton type="submit" [disabled]="jobf.invalid">Save</button>
+		</form>
+	</nb-card-body>
+</nb-card>
+
+<ng-template #regularUser>
+  <nb-card>
+    <nb-card-body>
+      <h2>You dont rights to add a job you are not an employer.</h2>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+
+
+
+
+
+
+

@@ -1,0 +1,128 @@
+:host {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+    p {
+        font-size: 1.2rem;
+    }
+
+
+    .profile-details {
+        h3 {
+            line-height: 0;
+            margin: 10px 0 50px 25px;
+        }
+
+        p {
+            line-height: 1.2;
+            margin-left: 25px;
+        }
+    }
+
+
+    @media screen and (max-width: 470px) {
+        flex-direction: column;
+
+        .profile-details {
+            margin: 0 1em;
+        }
+    }
+}
+
+.profile-img {
+    height: 100px;
+    min-width: 100px;
+    border-radius: 0;
+    background: rgba(102, 51, 153, 0.473);
+}
+
+.qualifications {
+    padding-left: 5em;
+
+    @media screen and (max-width: 480px) {
+        padding: 0;
+    }
+
+    .title h5 {
+        font-size: 1.6rem;
+    }
+
+    .description p{
+        span {
+            color: #31ea8b;
+        }
+        font-size: 1.2rem
+    }
+}
+
+ul {
+    display: contents;
+
+    li {
+        margin-right: 75px;
+        list-style: none;
+        line-height: 1.6;
+    }
+}
+
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.uploads {
+    margin: 1em 0;
+
+    a {
+        display: block;
+        width: 100%;
+        border-radius: 3px;
+        background-color: rgb(30, 119, 235);
+        color: white;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        padding: 1em 2em;
+        transition: background-color 300ms ease-in;
+
+        &:hover {
+            background-color: rgba(30, 119, 235, 0.562);
+        }
+    }
+}
+
+.accept {
+    margin: 1em 0 0 1em;
+    button {
+        width: 100%;
+        display: block;
+        border-radius: 3px;
+        background: rgb(230, 154, 14);
+        color: #100c17;
+        padding: 1em 2em;
+        text-transform: uppercase;
+        border: none;
+        transition: all 200ms ease-in;
+
+        &:focus, &:hover {
+            outline: none;
+            border: none;
+            color: white;
+            background: rgb(255, 166, 0);
+        }
+    }
+}

@@ -1,0 +1,61 @@
+
+    
+    <div class="mb-5" fxLayout="column" fxLayoutAlign="center" fxLayoutGap="25px">
+      <div>
+        <h2 class="text-center">Build your profile</h2>
+        <div class="bg-initial"></div>
+      </div>  
+      <div class="form">
+        <form [formGroup]="profileForm" (ngSubmit)="profileSubmit()">
+
+                <input type="file" accept=".png, .jpeg" fullWidth formControlName="imageUrl" nbInput placeholder="Add prefered profile">
+              
+                <input type="text" 
+                placeholder="Enter your prefered username"
+                nbInput
+             
+                fieldSize="large"
+                fullWidth
+                formControlName="username"
+                required
+                id="username"
+                >
+                <label for="username">
+                  <error-message [control]="profileForm.controls.username" *ngIf="profileForm.controls.username.touched && profileForm.controls.username.dirty"></error-message>
+                </label>
+          
+                <input 
+                type="text" 
+                placeholder="Enter your telephone number" 
+                nbInput 
+  
+                fieldSize="large"
+                fullWidth
+                name="telephoneNumber" 
+               
+                formControlName="telephoneNumber"
+                required
+                id="telephoneNumber"
+                >
+                <label for="telephoneNumber">
+                  <error-message [control]="f.telephoneNumber"
+                    *ngIf="f.telephoneNumber.touched && f.telephoneNumber.dirty"></error-message>
+                </label>
+
+            
+            <div class="input-group">
+              <nb-select id="role" fullWidth formControlName="role" placeholder="Select your prefered option">
+                <nb-option value="job-seeker">Seeking a job</nb-option>
+                <nb-option value="employer">Employer</nb-option>
+              </nb-select>
+              <label for="role">
+                <error-message [control]="f.role" *ngIf="f.role.touched && f.role.dirty">
+                </error-message>
+              </label>
+            </div>
+            <button nbButton type="submit" [disabled]="profileForm.invalid">Add profile</button>
+        </form>
+      </div>
+  </div>
+  
+

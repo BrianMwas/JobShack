@@ -1,0 +1,29 @@
+<div
+  fxLayout.sm="column"
+  fxLayout="row"
+  fxLayout.md="row"
+  fxLayout.xs="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap="50px"
+  class="container"
+  >
+	<div>
+		<img src="../../../assets/svg/16.svg" alt="talk to us">
+		<h2 class="text-center">Get in touch with Us..Pretty easy</h2>
+	</div>
+	<nb-card accent="primary"  [size]="medium">
+		<nb-card-header>
+			<h4>
+				Contact Us
+			</h4>
+		</nb-card-header>
+		<nb-card-body>
+			<form fxLayout="column" fxLayoutGap="30px" [formGroup]="contactForm" (ngSubmit)="submit()">
+				<input type="text" fullWidth  required name="full name" formControlName="name" placeholder="Full name" nbInput>
+				<input type="email" required fullWidth name="email" formControlName="email" nbInput placeholder="Email" nbInput>
+				<textarea nbInput rows="5" placeholder="Message" fullWidth required formControlName="message"></textarea>
+				<button type="submit" nbButton>Send</button>
+			</form>
+		</nb-card-body>
+	</nb-card>
+</div>

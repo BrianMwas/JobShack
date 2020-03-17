@@ -1,0 +1,83 @@
+@mixin mq($width, $type) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+
+        @if $type == max {
+            $width : $width - 1px;
+        }
+
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+
+
+$breakpoints: (
+    "phone": 400px,
+    "phone-wide": 480px,
+    "phablet": 560px,
+    "tablet-small": 640px,
+    "tablet": 768px,
+    "tablet-wide": 1024px,
+    "desktop": 1248px,
+    "desktop-wide": 1440px
+);
+
+
+
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 200px;
+
+
+    h1, h2, h3, p, li{
+    	color: black !important;
+    }
+}
+
+
+.ck .ck-editor {
+	max-width: 480px;
+}
+
+nb-card {
+	max-width: 500px;
+
+
+	@include mq('max','phone') {
+		width: 100%;
+	}
+
+
+	@include mq('max', 'phablet') {
+		width: 100%;
+	}
+
+	@include mq('max', 'tablet') {
+		min-width: 500px;
+	}
+
+}
+
+.form-input {
+	margin: 20px 0;
+}
+
+
+.nb-theme-cosmic p, .nb-theme-cosmic .paragraph  {
+    color: black !important;
+}
+
+
+.fr-box {
+    p {
+        color: black;
+    }
+}
+
+.form-input {
+    p {
+        color: black !important;
+    }
+}

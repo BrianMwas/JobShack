@@ -1,0 +1,61 @@
+<div fxLayout="row" fxLayoutAlign="start" class="nav" *ngIf="loggedIn else default">
+  <nb-action fx-Show fxHide.gt-sm icon="menu-2" class="m-16 tSideBarBtn" size="large" (click)="toggle()"></nb-action>
+  <h4>JS</h4>
+  <ul fxLayout="row" fxLayoutAlign="end" style="width: 100%;">
+    <li fxHide fxShow.gt-sm>
+      <nb-search (loading)="loading = $event" searchResults="updateResults($event)" type="rotate-layout"></nb-search>
+    </li>
+    <li>
+      <!-- <button nbButton size="tiny" (click)="toggleTheme()">Change theme</button> -->
+      <nb-action *ngIf="darkMode" icon="sun-outline" (click)="toggleTheme()"></nb-action> 
+      <nb-action *ngIf="!darkMode" icon="moon-outline" (click)="toggleTheme()"></nb-action> 
+    </li>
+    <li fxHide fxShow.gt-sm>
+      <a *ngIf="profileDefined" [routerLink]="['/dashboard']" >Dashboard</a>
+    </li>
+    <li fxHide fxShow.gt-sm>
+      <a [routerLink]="['/']">Jobs</a>
+    </li>
+    <nb-user fxHide fxShow.gt-sm [name]="user?.fullName" [title]="user?.email" [nbContextMenu]="items"  nbContextMenuTag="userMenu"></nb-user>
+  </ul>
+</div>
+
+<ng-template  #default>
+  <div fxLayout="row" fxLayoutAlign="start" class="nav">
+    <nb-action fx-Show fxHide.gt-sm icon="menu-2" class="m-16 tSideBarBtn" size="large" (click)="toggle()"></nb-action>
+    <h4>JobShack</h4>
+    <ul fxLayout="row" fxLayoutAlign="end" style="width: 100%;" >
+      <li fxHide fxShow.gt-sm>
+        <nb-search (loading)="loading = $event" searchResults="updateResults($event)" type="modal-move"></nb-search>
+      </li>
+      <li fxHide fxShow.gt-sm>
+        <!-- <button nbButton size="small" (click)="toggleTheme()">Change theme</button> -->
+          <nb-action *ngIf="darkMode" icon="sun-outline" (click)="toggleTheme()"></nb-action> 
+          <nb-action *ngIf="!darkMode" icon="moon-outline" (click)="toggleTheme()"></nb-action> 
+      </li>
+      <li fxHide fxShow.gt-sm>
+        <a [routerLink]="['/']">Home</a>
+      </li>
+
+      <li fxHide fxShow.gt-sm>
+        <a [routerLink]="['/contact-us']">Contact Us</a>
+      </li>
+
+      <li fxHide fxShow.gt-sm>
+        <a [routerLink]="['/about']">About Us</a>
+      </li>
+
+      
+      <li fxHide fxShow.gt-sm>
+        <a [routerLink]="['/auth/login']" routerLinkActive="active">Log in</a>
+      </li>
+      <li fxHide fxShow.gt-sm>
+        <a [routerLink]="['/auth/register']" routerLinkActive="active">Sign Up</a>
+      </li>
+    </ul>
+  </div>
+
+</ng-template>
+
+
+

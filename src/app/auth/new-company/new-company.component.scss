@@ -1,0 +1,39 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+
+    @media screen and (max-width: 768px) {
+        width: 95%;
+    }
+}
+
+
+input, nb-select, button, textarea {
+    margin-top: 1em;
+}
+
+h2 {
+    text-align: center;
+    position: relative;
+
+    &::after {
+        position: absolute;
+        display:block;
+        content: "";
+        width: 100px;
+        height: 2px;
+        background-color: white;
+        margin: auto;
+        bottom: -20px;
+        right: 0;
+        left: 0;
+    }
+}
+
+.newCompanyImage {
+    background: url('../../../assets/svg/2.svg') no-repeat center center;
+    height: 350px;
+    width: 350px;
+    margin: 2em auto;
+}
+

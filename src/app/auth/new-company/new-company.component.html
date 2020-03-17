@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="intro">
+        <div class="newCompanyImage"></div>
+        <h2>Build your company</h2>
+    </div>
+    <div class="form">
+        <form [formGroup]="companyForm" (ngSubmit)="submitCompany()">
+            <input placeholder="Company name" type="text" id="companyName" formControlName="name" nbInput fullWidth>
+            <label for="companyName" *ngIf="submitted && (f.name.dirty || f.name.touched)">
+                <small class="text-danger" *ngIf="f.name.errors.required">A company name is required</small>
+            </label>
+
+           <textarea rows="3" id="summary" formControlName="summary" fullWidth nbInput placeholder="Company summary"></textarea>
+           <label *ngIf="submitted && (f.summary.dirty || f.summary.touched)" for="summary">
+                <small *ngIf="f.summary.errors.required" class="text-danger">Company name is required</small>
+            </label>
+
+            <input placeholder="website" type="text" id="website" formControlName="website" nbInput fullWidth>
+            <label *ngIf="submitted && (f.website.dirty || f.website.touched)"  for="website">
+                <small *ngIf="f.website.errors.minLength" class="text-danger">url requires a min length of 7</small>
+            </label>
+
+
+            <input placeholder="Address" type="text" id="website" formControlName="address" nbInput fullWidth>
+            <label *ngIf="submitted && (f.address.dirty || f.address.touched)"  for="website">
+                <small *ngIf="f.address.errors.minLength" class="text-danger">Address requires a min length of 7</small>
+            </label>
+
+
+            <input placeholder="contact" type="text" formControlName="contact" nbInput fullWidth>  
+            <label *ngIf="submitted && (f.contact.dirty || f.contact.touched)" for="contact">
+                <small *ngIf="f.contact.errors.required" class="text-danger">
+                    Contact information is required.
+                </small>
+                <small *ngIf="f.contact.errors.minLength" class="text-danger">
+                    A minimum of 4 characters is needed
+                </small>
+            </label> 
+            <div>
+                <nb-select id="country" size="large" placeholder="All countries" fullWidth formControlName="country"
+                    (change)="changeCountry($event)">
+                <nb-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</nb-option>
+                </nb-select>
+                <label *ngIf="submitted && (f.country.dirty || f.country.touched)" for="country">
+                    <small *ngIf="f.country.errors.required" class="text-danger">Please select your country</small>
+                </label>    
+            </div>
+            
+            <button status="info" type="submit" [disabled]="companyForm.invalid" nbButton>Create</button>
+        </form>
+    </div>
+</div>

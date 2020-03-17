@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>Search results..</h2>
+    <hr>
+
+    <div class="results" *ngIf="loading else loaded">
+      <div fxLayoutAlign="center center" style="height: 50vh; width: 50vh; margin: auto;">
+        	<div class="loading radar"></div>
+      </div>
+    </div>
+    <ng-template #loaded>
+      <div *ngIf="jobResults.length > 0; else noResults" class="my-2">
+        <app-joblist [jobs]="jobResults"></app-joblist>
+      </div>
+      <ng-template #noResults>
+        <h4>Sorry we did not find any job by the name <span class="text-success h2">`{{searchTerm}}`</span></h4>
+      </ng-template>
+    </ng-template>
+
+</div>
+
+

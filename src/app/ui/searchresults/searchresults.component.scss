@@ -1,0 +1,45 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.my-2 {
+  margin: 1em 0;
+}
+
+.loading {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background: rgba(64, 4, 206, 0.185);
+  border-radius: 50%;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+
+  &::after, &::before{
+    content: "";
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+  }
+}
+
+.radar {
+  &::before, &::after {
+    position: absolute;
+    top: 50%;
+    // left: 50%;
+    margin-top: -50px;
+    margin-bottom: -50px;
+    opacity: 0;
+    background: rebeccapurple;
+    animation: pulse 3s linear infinite;
+  }
+
+  &::after {
+    animation: pulse 2s linear infinite;
+  }
+}

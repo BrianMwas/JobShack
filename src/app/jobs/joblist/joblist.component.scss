@@ -1,0 +1,141 @@
+p {
+    font-size: 1rem;
+}
+
+
+@mixin mq($width, $type) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+
+        @if $type == max {
+            $width : $width - 1px;
+        }
+
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+
+
+nb-card p {
+  margin: 2px 0 !important;
+}
+
+$breakpoints: (
+    "phone": 400px,
+    "phone-wide": 480px,
+    "phablet": 560px,
+    "tablet-small": 640px,
+    "tablet": 768px,
+    "tablet-wide": 1024px,
+    "desktop": 1248px,
+    "desktop-wide": 1440px
+);
+
+.job-card {
+	max-width: 500px;
+
+
+	@include mq('max','phone') {
+		width: 100%;
+	}
+
+
+	@include mq('max', 'phablet') {
+		width: 100%;
+	}
+
+	@include mq('max', 'tablet') {
+		min-width: 500px;
+	}
+
+}
+
+
+.skeleteon {
+    // background: no-repeat;
+    // background-image: radial-gradient(circle 16px, white 99%, 0%),
+    //                     linear-gradient(white 40px, transparent 0%),
+    //                     linear-gradient(gray 100%, transparent 0%);
+
+    // background-size: 32px 32px, 200px 40px, 100% 100%;
+    // background-position: 24px 24px, 24px 200px 0 0;
+
+    --card-height: 340px;
+    --card-padding: 24px;
+    --card-skeleton: linear-gradient(gray var(--card-height), transparent 0);
+
+    --title-height: 32px;
+    --title-width: 200px;
+    --title-position: var(--card-padding) 180px;
+    --title-skeleton: linear-gradient(white var(--title-height), transparent 0);
+
+    --avatar-size: 32px;
+    --avatar-position: var(--card-padding) var(--card-padding);
+    --avatar-skeleton: radial-gradient(
+        circle calc(var(--avatar-size)),
+        white 99%,
+        transparent 0
+    );
+
+
+    background-image: var(--avatar-skeleton),
+                        var(--title-skeleton),
+                        var(--card-skeleton);
+
+    background-size: var(--avatar-size),
+                    var(--title-width) var(--title-height),
+                    100% 100%;
+    background-position: var(--avatar-position),
+    var(--title-position),
+    0 0;
+}
+
+
+@include mq('max', 'talet-wide') {
+    :root {
+        --card-padding: 32px;
+        --card-height: 360px;
+    }
+}
+
+
+
+.spinner {
+  height: 400px;
+  width: 400px;
+  border-radius: 50%;
+  position: relative;
+  background-color: rgba(48, 38, 48, 0.644);
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    display: block;
+    width: 400px;
+    height: 400px;
+  }
+
+
+  &::after {
+    top: -4px;
+    left: -4px;
+    border: solid 4px transparent;
+    border-top-color: rgb(68, 17, 88);
+    border-bottom-color: rgb(68, 17, 88);
+    animation: spinny 2s linear infinite;
+  }
+}
+
+
+@keyframes spinny {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

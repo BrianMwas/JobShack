@@ -1,0 +1,40 @@
+:host {
+	width: 80%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+
+
+	p {
+		line-height: 1.6;
+		font-size: 1.2rem;
+	}
+
+	.process {
+		display: flex;
+		flex-direction: row;
+		line-height: 1.5;
+
+		@media screen and (max-width: 480px) {
+			flex-direction: column;
+		}
+
+		.process-img {
+			height: 350px;
+			width: 350px;
+			margin-top: 2em;
+			margin-left: 4em;
+
+			@media screen and (max-width: 480px) {
+				margin: 0 auto;
+			}
+		}
+
+		.process-img img {
+			width: 350px;
+			object-fit: contain;
+			object-position: center;
+		}
+
+	}
+}

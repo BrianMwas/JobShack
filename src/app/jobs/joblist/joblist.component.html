@@ -1,0 +1,35 @@
+<div class="job-list" *ngIf="jobs">
+    <nb-card class="job-card" [size]="medium" accent="success" *ngFor="let job of jobs">
+        <nb-card-header fxLayout="row" fxLayoutAlign="space-between">
+            <div>
+                <h4>
+                    {{ job.title }}
+                </h4>
+                <p>
+                    {{job.company.name}}
+                </p>
+            </div>
+            <p>
+              <span>
+                <nb-icon icon="pin" size="large"></nb-icon>
+              </span>
+              <span>
+                {{ job.country }}
+              </span>
+            </p>
+        </nb-card-header>
+        <nb-card-body>
+            <p>
+                {{ job.summary }}
+            </p>
+        </nb-card-body>
+        <nb-card-footer>
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px" fxLayout.xs="column">
+                <button (click)="goto(job.id)" nbButton accent="primary" class="mr-5">More Info</button>
+                <p>posted {{ job.createdAt | dateAgo }}</p>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</div>
+
+

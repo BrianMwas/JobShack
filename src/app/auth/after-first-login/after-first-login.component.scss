@@ -1,0 +1,85 @@
+$breakpoints: ("phone": 400px,
+  "phone-wide": 480px,
+  "phablet": 560px,
+  "tablet-small": 640px,
+  "tablet": 768px,
+  "tablet-wide": 1024px,
+  "desktop": 1248px,
+  "desktop-wide": 1440px);
+
+
+  @mixin mq($width, $type) {
+    @if map_has_key($breakpoints, $width) {
+      $width: map_get($breakpoints, $width);
+
+      @if $type==max {
+        $width: $width - 1px;
+      }
+
+      @media only screen and (#{$type}-width: $width) {
+        @content;
+      }
+    }
+  }
+input {
+    margin: 0 0 10px;
+}
+
+nb-select.country {
+    margin: 10px 0;
+}
+
+label {
+  margin: 5px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.bg-initial {
+    height: 250px;
+    width: 250px;
+    margin: 0 auto;
+    background: url("../../../assets/svg/4.svg") no-repeat center;
+    object-fit: contain;
+}
+
+button {
+    margin: 10px 0;
+}
+
+nb-stepper {
+    width: 50%;
+    margin: 0 auto;
+
+    @include mq('max', 'tablet') {
+        width: 80%;
+        margin: 0 auto;
+
+    }
+
+    @include mq("max", 'phone') {
+        width: 100%;
+    }
+}
+
+
+.form-control-danger {
+  border-color: #c32e59 !important;
+}
+
+.form {
+  width: 60%;
+  margin: auto;
+
+  @include mq('max', 'phone') {
+    width: 80%;
+    margin: auto;
+  }
+
+  @include mq('max', 'tablet') {
+    width: 70%;
+    margin: auto;
+  }
+}
