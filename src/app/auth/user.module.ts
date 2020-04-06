@@ -31,6 +31,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AfterFirstLoginComponent } from './after-first-login/after-first-login.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { QModalComponent } from './q-modal/q-modal.component';
+import { StoreModule, StoreFeatureModule } from '@ngrx/store';
+import * as fromApplications from "../auth/reducers/auth.reducer"
+import { EffectsModule } from '@ngrx/effects';
+import { ApplicationEffect } from './effects/application.effects';
 
 
 
@@ -64,8 +68,12 @@ import { QModalComponent } from './q-modal/q-modal.component';
         NbBadgeModule,
         NbUserModule,
         FilestackModule,
-        NbDialogModule.forRoot()
-
+        NbDialogModule.forRoot(),
+        // StoreModule.forFeature(
+        //     fromApplications.ApplicationsFeatureKey, fromApplications.applicationsReducer
+        //     ),
+        // EffectsModule.forFeature([ ApplicationEffect ])
+        
     ],
     entryComponents: [
         QModalComponent

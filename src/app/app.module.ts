@@ -25,12 +25,13 @@ import { RoleProvider } from './auth/role.provider';
   ],
   imports: [
     BrowserModule,
-    ApplicationModule,
     BrowserAnimationsModule,
     NbLayoutModule,
     JobModule,
+    ApplicationModule,
     UisModule,
     ...nebular,
+    ...Store,
     UserProfileModule,
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbEvaIconsModule,
@@ -38,7 +39,6 @@ import { RoleProvider } from './auth/role.provider';
     ...auth,
     ...nBSecurity,
     AppRoutingModule,
-    ...Store
   ],
   providers: [
     AuthGuard,

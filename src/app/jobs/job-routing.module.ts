@@ -8,7 +8,7 @@ import { AuthGuard } from "../auth-guard.service";
 
 const routes: Routes = [
   {
-    path: 'job/:id',
+    path: 'job/:jobId',
     component: JobdetailComponent,
     resolve: {
       singleJob: JobDetailResolverService

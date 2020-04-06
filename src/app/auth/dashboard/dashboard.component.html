@@ -25,9 +25,9 @@
 						<form [formGroup]="pForm" fxLayout="column" fxLayoutGap="20px" (ngSubmit)="updateProfile()">
 							
 							<input formControlName="username" fullWidth size="medium" type="text" nbInput  placeholder="Username">
-							<textarea formControlName="description" fullWidth size="medium" placeholder="Your description" rows="4"></textarea>
+							<textarea formControlName="description" fullWidth size="medium" nbInput placeholder="Your description" rows="4"></textarea>
 							<input formControlName="telephone" fullWidth size="medium" type="text" nbInput  placeholder="Telephone">
-							<button [disabled]="profileChanged == false" type="submit" nbButton status="info">Update</button>
+							<button [disabled]="profileChanged" type="submit" nbButton status="info">Update</button>
 						</form>
 					</nb-card-body>
 					</nb-card>

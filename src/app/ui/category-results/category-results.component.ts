@@ -30,6 +30,7 @@ export class CategoryResultsComponent implements OnInit {
         .subscribe(
           (res) => {
             this.jobs = [...res]
+            console.log("jobs", this.jobs)
           },
           (err) => {
             this.loading = false

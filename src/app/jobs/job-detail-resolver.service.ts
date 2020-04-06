@@ -12,10 +12,9 @@ export class JobDetailResolverService implements Resolve<any> {
 
   constructor(private jobService: JobService, private store: Store<AppState>) { }
 
-  
-
   resolve(route: ActivatedRouteSnapshot) {
-    this.store.dispatch(loadJob({ id: route.paramMap.get('id')}))
-    return this.jobService.getJobById(route.paramMap.get('id'))
+    console.log("jobid", route.paramMap.get('jobId'))
+    this.store.dispatch(loadJob({ id: route.paramMap.get('jobId')}))
+    // return this.jobService.getJobById(route.paramMap.get('id'))
   }
 }

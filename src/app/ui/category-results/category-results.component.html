@@ -1,19 +1,15 @@
 
-<h2>Category results</h2>
-<hr>
-<ng-container *ngIf="loading; then jobFound; else notFound">
-    <div>
-        <h2>Please wait</h2>
-    </div>
-</ng-container>
-<ng-template #jobFound>
-    <app-joblist [jobs]="jobs"></app-joblist>
-</ng-template>
-<ng-template #notFound>
-    <div class="text-center">
-        <h3>Sorry we could not find any job by the category</h3>
-    </div>
-</ng-template>
+<div class="container">
+    <h2>Job By categories</h2>
+    <hr>
+    <ng-container *ngIf="!loading && jobs.length > 0; else noJobs">
+        <app-joblist [jobs]="jobs"></app-joblist>
+    </ng-container>
+    <ng-template #noJobs>
+        <h4>Sorry job not found</h4>
+    </ng-template>
+</div>
+
 
 
 

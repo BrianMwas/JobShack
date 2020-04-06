@@ -15,7 +15,7 @@
     justify-content: flex-start;
     
     p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
 
@@ -39,6 +39,19 @@
             margin: 0 1em;
         }
     }
+
+    @media screen and (max-width: 320px) {
+        flex-direction: column;
+
+        .profile-details h3 {
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .profile-details p {
+            line-height: 1.2;
+        }
+    }
 }
 
 .profile-img {
@@ -55,6 +68,8 @@
         padding: 0;
     }
 
+    
+
     .title h5 {
         font-size: 1.6rem;
     }
@@ -63,17 +78,23 @@
         span {
             color: #31ea8b;
         }
-        font-size: 1.2rem
+        font-size: 1rem
     }
 }
 
 ul {
     display: contents;
 
+    
+
     li {
         margin-right: 75px;
         list-style: none;
         line-height: 1.6;
+
+        @media screen and (max-width: 320px) {
+            margin-right: 0;
+        }
     }
 }
 
@@ -82,6 +103,15 @@ ul {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+
+    @media screen and (max-width: 320px) {
+        flex-direction: column;
+        
+        .accept {
+            width: 100%;
+            margin: auto 0 15px;
+        }
+    }
 }
 
 .uploads {

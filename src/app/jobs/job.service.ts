@@ -87,8 +87,8 @@ export class JobService {
     )
   }
 
-  updateJob(companyId: string, jobId: string, job: Job): Observable<Job> {
-    let url = `${this.baseUrl}company/${companyId}/job/${jobId}/update`;
-    return this.http.patch<Job>(url, job, httpOptions)
+  updateJob(companyId: string, jobId: string, job: Job) {
+    let url = `${this.baseUrl}companies/${companyId}/jobs/${jobId}/update`;
+    return this.http.put(url, job, httpOptions)
   }
 }

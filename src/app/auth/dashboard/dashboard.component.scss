@@ -1,6 +1,10 @@
 .container {
     width: 80%;
     margin: 0 auto;
+
+    @media screen and (max-width: 320) {
+      width: 100%;
+    }
 }
 
 
@@ -12,10 +16,7 @@ nb-card h4 {
     font-size: 1.3rem;
 }
 
-.center {
-    display: flex;
-    align-content: center;
-  }
+
   
   .loading {
     margin: auto;

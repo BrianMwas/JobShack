@@ -11,6 +11,8 @@ import { FilestackService } from '@filestack/angular';
 import { Profile } from 'src/app/shared/models/profile';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/models/states/app.state.model';
+import { loggedInUserLoad, userProfileLoad } from 'src/app/shared/actions/auth.actions';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,12 +31,19 @@ export class DashboardComponent implements OnInit {
 	loadingProfile: Observable<Boolean>
 
 	fileStackApiKey: string
-	profileChanged: boolean = false;
+	profileChanged: boolean = true;
 
 	@Output()
 	userProfile: Profile;
 
-	constructor(private store: Store<AppState>, private userService: UserService, protected companyService: CompanyService, protected router: Router) {
+	constructor(
+		private store: Store<AppState>, 
+		private userService: UserService, 
+		protected companyService: CompanyService, 
+		protected router: Router,
+		private authService: NbAuthService,
+		private toastrService : NbToastrService
+		) {
 	}
 
 	pForm: FormGroup = new FormGroup({
@@ -44,34 +53,60 @@ export class DashboardComponent implements OnInit {
 	})
 
 	ngOnInit() {
+		this.pForm.statusChanges.subscribe(res => {
+			console.info("res", res)
+			if(res == 'VALID') {
+				this.profileChanged = false
+			}
+		})
+
+		this.authService.onTokenChange()
+		.subscribe(res => {
+			this.store.dispatch(loggedInUserLoad({ userId: res.getPayload()['userId']  }))
+			this.store.dispatch(userProfileLoad({ userId:  res.getPayload()['userId']}))
+		})
+
 		this.loadingUser = this.store.select(s => s.authUser.loading);
 		this.loadingProfile = this.store.select(p => p.authUserProfile.loading);
 
-		this.store.select(store => store.authUser).subscribe(
-			(res) => {
-
-				this.currentUser = res.user
-				console.log("res", res)
-			},
-			(err) => {
-				console.log("error", err)
-			},
-			() => {
-				console.log("done")
-			}
-		)
 		
-		this.store.select(store => store.authUserProfile).subscribe(
-			(res) => {
-				this.userProfile = res.userProfile
-				console.info("dash profile", res)
-			},
-			(err) => {
-				console.warn("error", err)
-			}, 
-			() => {
-				console.info("done")
-			})
+			this.store.select(store => store.authUser)
+			.subscribe(
+				(res) => {
+					this.currentUser = res.user
+					if(!res.user) {
+						this.router.navigate(['/'])
+					}
+					
+				},
+				(err) => {
+					console.log("error", err)
+				},
+				() => {
+					console.log("done")
+				}
+			)
+		
+		
+		
+			this.store.select(store => store.authUserProfile)
+			.subscribe(
+					(res) => {
+						this.userProfile = res.userProfile
+						
+						if(!res.userProfile) {
+							this.router.navigateByUrl('/create-profile')
+						}
+					},
+					(err) => {
+						console.warn("error", err)
+					}, 
+					() => {
+						console.info("done")
+					}
+				)
+	
+
 
 			this.populateProfile()
 			
@@ -79,7 +114,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-
+	
 	// fileChanged(e) {
 	// 	this.file = e.target.files[0];
 	// }
@@ -88,14 +123,22 @@ export class DashboardComponent implements OnInit {
 	// 	.subscribe(res => console.log(res));
 	// }
 
-	updateProfile() {
-		console.log("udp", this.pForm.value)
+
+
+	updateProfile() {	
+			this.userService.updateUserProfile(this.currentUser.id, this.pForm.value).subscribe(
+				(changedData) => {
+					this.toastrService.default("Profile updating", "Profile", { preventDuplicates: true, duration: 3000 })
+				},
+				(error) => {
+					this.toastrService.danger("Profile not updated", "Profile")
+				},
+				() => {
+					this.toastrService.success("Profile updated", "Profile")
+				}
+			)
 		
-		this.userService.updateUserProfile(this.currentUser.id, this.pForm.value).subscribe(
-			(changedData) => {
-				console.log("changed..", changedData)
-			}
-		)
+
 	}
 
 	populateProfile() {

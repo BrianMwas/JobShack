@@ -2,8 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { NbAuthService } from '@nebular/auth';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Application } from '../shared/models/application';
+
+interface IResults {
+  data: Application[],
+  success: boolean
+}
+
+interface ISingleResults {
+  payload: Application,
+  success: boolean
+}
 
 
 const httpOptions = {
@@ -34,7 +45,7 @@ export class ApplicationService {
     this.authService.getToken()
     .subscribe(res => {
       httpOptions.headers = httpOptions.headers.set("authorization", res['token'])
-
+      console.log("token", res)
     })
    }
 
@@ -50,15 +61,17 @@ export class ApplicationService {
   }
 
 
+  getApplicationDetail(applicationId: string) {
+    const url = `${this.baseURL}jobs/applications/${applicationId}`;
+    console.log("url", url);
+    
+    return this.httpService.get<ISingleResults>(url, httpOptions)
+  }
+
+
   getAllJobApplications(jobId: String) {
     let url = `${this.baseURL}jobs/${jobId}/applications`;
-
-    return this.httpService.get(url).pipe(
-      catchError(
-        this.handleError('getJobApplications')
-      ),
-      map(res => res['data'])
-    )
+    return this.httpService.get<IResults>(url, httpOptions)
   }
 
 

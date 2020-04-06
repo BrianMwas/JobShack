@@ -5,9 +5,9 @@
         Company
       </h4>
     </nb-card-header>
-    <nb-card-body *ngIf="companyCreated; else createCompany" fxLayout="row" fxLayout.md="row" fxLayoutAlign="center center" fxLayout.sm="column" fxLayoutGap="20px">
+    <nb-card-body *ngIf="companyCreated; else createCompany" fxLayout="row" fxLayout.md="row" fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
 
-        <form fxFlex="60%" [formGroup]="company" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="15px">
+        <form fxFlex="60%" fxFlex.xs="100%" [formGroup]="company" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="15px">
           <input formControlName="name" nbInput fullWidth fieldSize="medium" placeholder="Company name">
           <input formControlName="website" nbInput fullWidth fieldSize="medium" placeholder="Company website">
           <textarea rows="5" formControlName="summary" nbInput fullWidth placeholder="Summary"></textarea>
@@ -20,7 +20,7 @@
           <button [disabled]="company.invalid && !companyDataChanged" nbButton type="submit">Update</button>
         </form>
 
-      <div fxFlex="40%" fxLayoutAlign="center center" fxLayout="column">
+      <div fxFlex="40%" fxFlex.xs="100" fxLayoutAlign="center center" fxLayout="column">
         <img class="company-img" src="../../../assets/img/Launch.png" alt="Launch">
         <h6 class="company-message">Hurray to the company</h6>
 
@@ -64,27 +64,27 @@
         </nb-action>
       </nb-actions>
     </nb-card-header>
-    <nb-card-body>
+    
       <nb-list>
-        <nb-list-item *ngFor="let job of companyJobs" nbPopoverAdjustment="noop" [nbPopover]="applicationActions">
+        <nb-list-item (click)="selected(job.id)" *ngFor="let job of companyJobs" nbPopoverAdjustment="noop" [nbPopover]="applicationActions">
           <nb-user [name]="job.title" [title]="job.type">
           </nb-user>
         </nb-list-item>
       </nb-list>
-    </nb-card-body>
+ 
   </nb-card>
 </div>
 
 <ng-template #applicationActions>
-  <nb-card class="margin-bottom-0">
+  <nb-card class="margin-bottom-0 h-100 shadow-none">
     <nb-card-header>
       Choose action
     </nb-card-header>
     <nb-list>
-      <nb-list-item>
+      <nb-list-item [routerLink]="[ companyJobUrl, jobSelected]">
         Edit job
       </nb-list-item>
-      <nb-list-item>
+      <nb-list-item [routerLink]="[ '/applications', jobSelected]">
         View applicants
       </nb-list-item>
     </nb-list>

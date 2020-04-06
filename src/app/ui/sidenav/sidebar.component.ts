@@ -56,7 +56,18 @@ export class SidebarComponent implements OnInit {
     }
 ]
 
+
 loggedInMenuItems: NbMenuItem[] = [
+  {
+    title: 'Dashboard',
+    link: 'dashboard',
+    icon: 'settings'
+  },
+  {
+    title: 'Home',
+    link: 'home',
+    icon: 'home'
+  },
   {
     title: 'Log out',
     icon: 'log-out-outline'

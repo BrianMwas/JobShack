@@ -1,7 +1,9 @@
 import { User } from 'src/app/shared/models/user';
 import { Profile } from 'src/app/shared/models/profile';
+import { ApplicationsState, SingleApplicationState } from './states/application.state';
+
 
 export interface AuthState {
-    readonly authUser: User
-    readonly profile: Profile
+    readonly applications: ApplicationsState,
+    readonly application: SingleApplicationState
 }

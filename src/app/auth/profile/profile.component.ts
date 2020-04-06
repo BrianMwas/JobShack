@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
 			return arr[0]
 		}
 
-		for(let i = 0; i < arr.length; i++ ) {
+		for(let i = 0; i < arr.length; i++)  {
 			if(i == index) {
 				return arr[i]
 			}
@@ -96,7 +96,8 @@ export class ProfileComponent implements OnInit {
 			// console.log("qualification", this.qualifications)
 			// this.qualifications.push(newQ)
 
-			this.qualificationService.postNewQualification(this.profile.user, newQ).subscribe(res => {
+			this.qualificationService.postNewQualification(this.profile.user, newQ)
+			.subscribe(res => {
 				console.log("posted", res)
 				this.qualifications.push(res['data'])
 			})

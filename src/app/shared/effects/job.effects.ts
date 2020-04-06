@@ -24,6 +24,7 @@ export class JobEffects {
         ofType(JobActions.loadJob),
         switchMap(({ id }) => {
             return this.jobService.getJobById(id).pipe(
+                tap(res => console.log("res job", res)),
                 map(res => JobActions.jobLoaded({ job: res.data })),
                 catchError(err => of(JobActions.loadJobFailed(err)))
             )

@@ -10,6 +10,9 @@ import { DashboardComponent } from "./dashboard/dashboard.component"
 
 import { CompanyComponent } from './company/company.component';
 import { UserResolverService } from './user-resolver.service';
+import { JobcreateComponent } from '../jobs/jobcreate/jobcreate.component';
+import { JobDetailResolverService } from '../jobs/job-detail-resolver.service';
+import { CompanyResolverService } from './company.resolver.service';
 
 
 const routes: Routes = [
@@ -17,7 +20,9 @@ const routes: Routes = [
     path: "dashboard",
 		component: DashboardComponent,
 		canActivate: [AuthGuard],
-		
+		resolve: {
+			company: CompanyResolverService
+		},
     	data: { title: "Job Shack | Dashboard" },
 	},
 	{
@@ -34,6 +39,14 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 		resolve: {
 			userData: UserResolverService
+		}
+	},
+	{
+		path: 'job/:companyId/update/:jobId',
+		component: JobcreateComponent,
+		canActivate: [AuthGuard],
+		resolve: {
+			jobDetail: JobDetailResolverService
 		}
 	}
 ];

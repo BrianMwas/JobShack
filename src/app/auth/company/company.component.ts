@@ -3,7 +3,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { CompanyService } from '../company.service';
 import { Company } from 'src/app/shared/models/company';
 import * as country from "../../../assets/JSON/country.json";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 
 
@@ -18,7 +18,9 @@ export class CompanyComponent implements OnInit {
   countries: any = (country as any).default;
   companyDataChanged: boolean = false;
   companyData: Company;
-  companyJobs = []
+  companyJobs = [];
+  jobSelected: string
+  companyJobUrl: string
 
 
   company : FormGroup =  new FormGroup({
@@ -30,18 +32,18 @@ export class CompanyComponent implements OnInit {
   })
   companyCreated: boolean
 
-  constructor(private companyService: CompanyService, private router: Router, private toastrService: NbToastrService) { }
+  constructor(private route: ActivatedRoute, private companyService: CompanyService, private router: Router, private toastrService: NbToastrService) { }
 
   ngOnInit() {
-    this.companyService.getCompany()
-		.subscribe(res => {
-      this.companyData = new Company(res);
-      this.companyCreated = true;
-      this.companyJobs = [...this.companyData.jobs]
-      this.populateCompany(this.companyData)
-      console.log("company", this.companyJobs)
+    this.route.data.subscribe((data: { company: Company }) => {
+      this.companyData = data.company;
+      this.companyCreated = true
+      this.companyJobs = [...this.companyData.jobs];
+      this.populateCompany(this.companyData);
+      console.log("company res", this.companyData)
     })
-    this.checkForStatusChanges()
+    this.checkForStatusChanges();
+    this.companyJobUrl = `/job/${this.companyData.id}/update`
   }
 
 
@@ -91,6 +93,11 @@ export class CompanyComponent implements OnInit {
       )
     }
     console.log("contact", this.company.value)
+  }
+
+  selected(id) {
+    this.jobSelected = id
+    // alert(`${this.jobSelected} was selected`)
   }
 
 }

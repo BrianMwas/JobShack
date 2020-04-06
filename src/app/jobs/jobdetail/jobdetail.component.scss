@@ -53,7 +53,9 @@ small {
     margin-top: .95em;
   }
 }
-
-
-
+.container {
+    @media screen and (max-width: 320px) {
+        width: 100% !important;   
+    }
+}
 

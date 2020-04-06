@@ -3,6 +3,11 @@ import { Application } from 'src/app/shared/models/application';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/models/states/app.state.model';
+import { ApplicationService } from '../application.service';
+import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
+import { AuthState } from 'src/app/auth/model/auth.states.model';
+import { map } from 'rxjs/operators';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-applicationdetail',
@@ -11,11 +16,31 @@ import { AppState } from 'src/app/shared/models/states/app.state.model';
 })
 export class ApplicationdetailComponent implements OnInit {
 
-  application: Observable<Application>
+  application: Application
+  loading: Observable<Boolean>
 
-  constructor(private store : Store<AppState>) { }
+  constructor(private store: Store<AuthState>,private dialService: NbToastrService, private router: Router) { }
 
   ngOnInit() {
+    // console.log("store", this.store.select(store => store.application));
+    setTimeout(() => {
+      this.store.select(store => store.application)
+      .subscribe(res => {
+        console.log("res app", res.application);
+        this.application = res.application;
+      });
+    }, 1000);
+    this.loading = this.store.select(store => store.application.loading);
+    this.checkErrors(this.store.select(store => store.application.error));
   }
 
+  checkErrors(error: Observable<Error>) {
+    if(error) {
+      error.subscribe(r => {
+        console.log("r", r)
+      })
+      this.dialService.danger('Sorry application error', 'error', { preventDuplicates: false })
+      this.router.navigateByUrl('/')
+    }
+  }
 }

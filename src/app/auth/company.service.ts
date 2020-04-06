@@ -55,6 +55,7 @@ export class CompanyService {
      let url = `${this.baseUrl}owner/company`;
 
      return this.httpService.get(url, httpOptions).pipe(
+       tap(res => console.log("data", res)),
        map(res => res['data']),
        catchError(
          this.handleError('Owner company retrieve failed.')

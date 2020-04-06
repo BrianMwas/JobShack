@@ -23,7 +23,11 @@
                 <label for="username">
                   <error-message [control]="profileForm.controls.username" *ngIf="profileForm.controls.username.touched && profileForm.controls.username.dirty"></error-message>
                 </label>
-          
+                
+							  <textarea formControlName="description" fullWidth size="medium" nbInput placeholder="Your description" rows="4"></textarea>
+
+
+
                 <input 
                 type="text" 
                 placeholder="Enter your telephone number" 

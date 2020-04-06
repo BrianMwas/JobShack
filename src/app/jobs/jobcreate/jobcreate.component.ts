@@ -10,7 +10,7 @@ import { NbToastrService } from '@nebular/theme';
 import { NbAccessChecker } from '@nebular/security';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/models/states/app.state.model.js';
-import { loadJob } from 'src/app/shared/actions/singleJob.actions.js';
+
 
 @Component({
   selector: 'app-jobcreate',
@@ -25,8 +25,9 @@ export class JobcreateComponent implements OnInit {
   jobtypes: any = (jobtype as any).default;
 
   job: Job = new Job("");
+  updatingJob: boolean = false;
 
-
+  jobLoaded: Boolean = false;
 
   jobf: FormGroup = new FormGroup({
     title: new FormControl(this.job.title, Validators.required),
@@ -66,16 +67,34 @@ export class JobcreateComponent implements OnInit {
      ) { }
 
   ngOnInit() {
-    if(this.route.snapshot.paramMap.has('id')) {
-      let id = this.route.snapshot.paramMap.get('id')
+    if(this.route.snapshot.paramMap.has('jobId')) {   
+      this.updatingJob = true
+      
+      setTimeout(() => {
+        this.store.select(store => store.job)
+        .subscribe((j) => {
+          this.job = j.job
+          
+          console.log("job", j)
+          this.populateJob()
+        },
+        (err) => {
+          console.log(err)
+        },
+        () => {
+          this.jobLoaded = true
+        }
+        )      
+      }, 1000)
+    } else {
+      this.jobLoaded = true
+    }
+  }
 
-      this.store.dispatch(loadJob({ id }))
 
-      this.store.select(store => store.job).subscribe(j => {
-        this.job = j.job
-      })
-
-      this.jobf.setValue({
+  populateJob() {
+    console.log("this.job", this.job)
+    this.jobf.setValue({
         title: this.job.title,
         summary: this.job.summary,
         description: this.job.description,
@@ -83,17 +102,25 @@ export class JobcreateComponent implements OnInit {
         industry: this.job.industry,
         type: this.job.type
       })
-    }
   }
 
   saveJob() {
     console.log("alright")
-    if(this.route.snapshot.paramMap.has('id')) {
+    if(this.route.snapshot.paramMap.has('jobId')) {
       console.log("yeah")
       this.jobService.updateJob(
         this.route.snapshot.paramMap.get('companyId'),
-        this.route.snapshot.paramMap.get('id'),
-        this.jobf.value)
+        this.route.snapshot.paramMap.get('jobId'),
+        this.jobf.value).subscribe((res) => {
+          this.toastrService.success("Job updated successfully", "Update", { preventDuplicates: true, duration: 3000 })
+        }, 
+        (err) => {
+          this.toastrService.warning("Job update failed", "Update", { preventDuplicates: true, duration: 3000 })
+
+        }, 
+        () => {
+          this.router.navigate(['/'])
+        })
     } else {
 
       this.jobService.postJob(

@@ -1,7 +1,10 @@
 
 <nb-card accent="success" *ngIf="accessChecker.isGranted('createjob', 'updatejob'); else regularUser">
-	<nb-card-header>
+	<nb-card-header *ngIf="!updatingJob">
 		<h2>Post new Job</h2>
+	</nb-card-header>
+	<nb-card-header *ngIf="updatingJob">
+		<h3>Update Job</h3>
 	</nb-card-header>
 	<nb-card-body>
 		<form [formGroup]="jobf" (ngSubmit)="saveJob()">

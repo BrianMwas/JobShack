@@ -1,39 +1,23 @@
 
 <div class="title">
-    <h3>Senior Developer</h3>
+    <h3>Applications</h3>
     <h5>Applications</h5>
 </div>
-<ul>
-    <li>
-        <a href="#">
-            Brian Mwangi
-        </a>
-        <p>
-            Applied on Thursday 12:00 pm
-        </p>
-    </li>
-    <li>
-        <a href="#">
-            Brian Mwangi
-        </a>
-        <p>
-            Applied on Thursday 12:00 pm
-        </p>
-    </li>
-    <li>
-        <a href="#">
-            Brian Mwangi
-        </a>
-        <p>
-            Applied on Thursday 12:00 pm
-        </p>
-    </li>
-    <li>
-        <a href="#">
-            Brian Mwangi
-        </a>
-        <p>
-            Applied on Thursday 12:00 pm
-        </p>
-    </li>
-</ul>
+
+<div class="text-center" *ngIf="loadingApplications | async; else appsLoaded">
+    <h4>Loading Applications...</h4>
+</div>
+
+<ng-template #appsLoaded>
+    <ul>
+        <li *ngFor="let application of applications;" >
+            <a [routerLink]="[ '/application/detail', application._id ]">
+                {{ application.user.fullName }}
+            </a>
+            <p>
+            Applied {{ application.createdAt | date:'mediumDate' }}
+            </p>
+        </li>
+        
+    </ul>
+</ng-template>

@@ -5,7 +5,7 @@
 import {  StoreDevtoolsModule } from "@ngrx/store-devtools";
 import * as fromJobs from '../app/shared/reducers/jobs.reducer';
 import * as fromAuth from "../app/shared/reducers/auth.reducers";
-
+import * as fromApplications from "../app/auth/reducers/auth.reducer"
 // Nebular Modules
 import {
     NbSidebarModule ,
@@ -35,6 +35,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { JobEffects } from './shared/effects/job.effects';
 import { AuthEffects } from './shared/effects/auth.effects';
+import { ApplicationEffect } from './auth/effects/application.effects';
 
 
 
@@ -55,14 +56,15 @@ export const Store = [
         jobs:  fromJobs.reducer,
         job: fromJobs.jobReducer,
         authUser: fromAuth.reducer,
-        authUserProfile: fromAuth.profileReducer
+        authUserProfile: fromAuth.profileReducer,
+        applications: fromApplications.applicationsReducer,
+        application: fromApplications.singleApplicationReducer
     }),
-    EffectsModule.forRoot([JobEffects, AuthEffects]),
+    EffectsModule.forRoot([JobEffects, AuthEffects, ApplicationEffect]),
     StoreDevtoolsModule.instrument({
         maxAge: 25, // Retains last 25 states
         logOnly: environment.production,
         //Restrict extension to log-only mode
-        
     })
 ]
 

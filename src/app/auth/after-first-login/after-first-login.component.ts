@@ -17,6 +17,7 @@ export class AfterFirstLoginComponent implements OnInit {
     imageUrl: [''],
     username: ['', [Validators.required, Validators.minLength(7)]],
     telephoneNumber: ['', Validators.required],
+    description: ['', Validators.required],
     role: ['', Validators.required]
   })
 
