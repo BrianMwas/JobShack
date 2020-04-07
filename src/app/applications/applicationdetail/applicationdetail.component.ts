@@ -29,18 +29,11 @@ export class ApplicationdetailComponent implements OnInit {
         console.log("res app", res.application);
         this.application = res.application;
       });
-    }, 1000);
+    });
     this.loading = this.store.select(store => store.application.loading);
-    this.checkErrors(this.store.select(store => store.application.error));
-  }
-
-  checkErrors(error: Observable<Error>) {
-    if(error) {
-      error.subscribe(r => {
-        console.log("r", r)
-      })
-      this.dialService.danger('Sorry application error', 'error', { preventDuplicates: false })
-      this.router.navigateByUrl('/')
-    }
+    this.store.select(store => store.application.error)
+    .subscribe(error => {
+      console.info("error", error);
+    })
   }
 }

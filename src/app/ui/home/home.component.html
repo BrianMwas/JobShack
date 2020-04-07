@@ -29,7 +29,7 @@
 			<ng-template #jobsLoaded>
 				
 				<div *ngIf="allJobs">
-					<app-joblist [jobs]="allJobs | paginate:{itemsPerPage: 2, currentPage:p}"></app-joblist>
+					<app-joblist [jobs]="allJobs | paginate:{itemsPerPage: 3, currentPage:p}"></app-joblist>
 				</div>
 				<div id="pagination">
 					<pagination-controls (pageChange)="p=$event"></pagination-controls>

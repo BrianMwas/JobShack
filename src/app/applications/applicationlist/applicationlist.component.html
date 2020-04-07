@@ -1,23 +1,29 @@
 
-<div class="title">
-    <h3>Applications</h3>
-    <h5>Applications</h5>
-</div>
+
 
 <div class="text-center" *ngIf="loadingApplications | async; else appsLoaded">
-    <h4>Loading Applications...</h4>
+    <p>Loading Applications...</p>
 </div>
 
 <ng-template #appsLoaded>
-    <ul>
-        <li *ngFor="let application of applications;" >
-            <a [routerLink]="[ '/application/detail', application._id ]">
-                {{ application.user.fullName }}
-            </a>
-            <p>
-            Applied {{ application.createdAt | date:'mediumDate' }}
-            </p>
-        </li>
-        
-    </ul>
+    <div *ngIf="applications.length <= 0">
+        <p>No applications yet</p>
+    </div>
+    <div *ngIf="applications.length > 0">
+        <div class="title">
+            <h3>Applications</h3>
+            <h5>Applications</h5>
+        </div>
+        <ul>
+            <li *ngFor="let application of applications;" >
+                <a [routerLink]="[ '/application/detail', application._id ]">
+                    {{ application.user.fullName }}
+                </a>
+                <p>
+                Applied {{ application.createdAt | date:'mediumDate' }}
+                </p>
+            </li>
+            
+        </ul>
+    </div>
 </ng-template>

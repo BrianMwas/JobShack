@@ -30,7 +30,7 @@ const _applicationReducer = createReducer(
 const _singleApplicationReducer = createReducer(
     initialSingleApplication,
     on(fromAppActions.loadSingleApplication, state => ({ ...state, loading: true, error: null })),
-    on(fromAppActions.loadSingleApplicationSuccessful, (state, { application }) => ({ ...state, loading: false, error: null, application })),
+    on(fromAppActions.loadSingleApplicationSuccessful, (state, { application }) => ({ ...state, loading: false, error: null, application: application })),
     on(fromAppActions.loadinSingleApplicationFailed, (state, { error }) => ({ ...state, loading: false, application: null, error }))
 );
 

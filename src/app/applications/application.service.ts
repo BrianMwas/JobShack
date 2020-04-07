@@ -12,7 +12,7 @@ interface IResults {
 }
 
 interface ISingleResults {
-  payload: Application,
+  data: Application,
   success: boolean
 }
 
@@ -28,6 +28,7 @@ const httpOptions = {
 })
 export class ApplicationService {
   private baseURL: string = environment.baseUrl
+  private userId: string;
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -45,7 +46,8 @@ export class ApplicationService {
     this.authService.getToken()
     .subscribe(res => {
       httpOptions.headers = httpOptions.headers.set("authorization", res['token'])
-      console.log("token", res)
+      console.log("token", res.getPayload())
+      this.userId = res.getPayload()['userId'];
     })
    }
 
@@ -62,7 +64,7 @@ export class ApplicationService {
 
 
   getApplicationDetail(applicationId: string) {
-    const url = `${this.baseURL}jobs/applications/${applicationId}`;
+    const url = `${this.baseURL}jobs/applicant/${this.userId}/applications/${applicationId}`;
     console.log("url", url);
     
     return this.httpService.get<ISingleResults>(url, httpOptions)

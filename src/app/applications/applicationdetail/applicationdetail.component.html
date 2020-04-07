@@ -1,13 +1,14 @@
 <div class="profile">
     <div class="profile-img"></div>
     <div class="profile-details">
-        <h3>Brian Mwangi</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus praesentium nemo commodi delectus consectetur tenetur.</p>
+        <h3>{{ application.profile[0].username }}</h3>
+        <p *ngIf="application.profile[0].description">{{ application.profile[0].descirption }}</p>
+        <p *ngIf="!application.profile[0].description">Applicant has no brief</p>
     </div>
 </div>
-<div class="qualifications">
+<div class="qualifications" *ngIf="application.qualification">
     <ul>
-        <li>
+        <li *ngFor="let q of application.qualification">
             <div class="title">
                 <h5>
                     Education
@@ -21,35 +22,10 @@
                 <p><span class="font-weight-bold">Description</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum atque minus consectetur ipsam harum corrupti dolorem saepe repellendus, recusandae facilis alias sunt possimus velit consequatur sit quibusdam sint aliquam consequuntur?</p>
             </div>
         </li>
-
-        <li>
-            <div class="title">
-                <h5>
-                    Work
-                </h5>
-            </div>
-            <div class="description">
-                <p> <span class="font-weight-bold">Title</span> Senior Developer</p>
-                <p><span class="font-weight-bold">Company</span> Krokar Tech</p>
-                <p><span class="font-weight-bold">From</span> Thursday 11th Jun 2019</p>
-                <p><span class="font-weight-bold">To</span> Friday 1st Jan 2020</p>
-                <p><span class="font-weight-bold">Description</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum atque minus consectetur ipsam harum corrupti dolorem saepe repellendus, recusandae facilis alias sunt possimus velit consequatur sit quibusdam sint aliquam consequuntur?</p>
-            </div>
-        </li> <li>
-            <div class="title">
-                <h5>
-                    Seminars
-                </h5>
-            </div>
-            <div class="description">
-                <p> <span class="font-weight-bold">Title</span> Senior Developer</p>
-                <p><span class="font-weight-bold">Company</span> Krokar Tech</p>
-                <p><span class="font-weight-bold">From</span> Thursday 11th Jun 2019</p>
-                <p><span class="font-weight-bold">To</span> Friday 1st Jan 2020</p>
-                <p><span class="font-weight-bold">Description</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum atque minus consectetur ipsam harum corrupti dolorem saepe repellendus, recusandae facilis alias sunt possimus velit consequatur sit quibusdam sint aliquam consequuntur?</p>
-            </div>
-        </li>
     </ul>
+</div>
+<div *ngIf="!application.qualification">
+    <p>Applicant has no qualifications added yet</p>
 </div>
 <div class="actions">
     <div class="uploads">
