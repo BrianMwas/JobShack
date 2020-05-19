@@ -114,7 +114,7 @@ export const auth = [
                     class: NbAuthJWTToken,
                     key: 'token'
                 },
-                baseEndpoint: 'http://localhost:9000/api/v1',
+                baseEndpoint: environment.baseUrl,
                 login: {
                     endpoint: "/auth/login",
                     method: 'post',
