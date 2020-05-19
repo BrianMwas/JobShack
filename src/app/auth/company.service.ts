@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Company } from '../shared/models/company';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,9 +21,10 @@ export class CompanyService {
   private baseUrl = environment.baseUrl
 
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T, route: string = '/') {
     return (error: any): Observable<T> => {
       console.error(JSON.stringify(error))
+      this.router.navigateByUrl(route);
       this.log(`${operation} failed: ${JSON.stringify(error)}`)
       return of(result as T)
     }
@@ -33,7 +35,7 @@ export class CompanyService {
   }
 
 
-  constructor(private httpService: HttpClient, private authService: NbAuthService) {
+  constructor(private httpService: HttpClient, private authService: NbAuthService, private router: Router) {
     this.authService.getToken()
     .subscribe(res => {
       httpOptions.headers = httpOptions.headers.set("authorization", res['token'])
@@ -55,10 +57,13 @@ export class CompanyService {
      let url = `${this.baseUrl}owner/company`;
 
      return this.httpService.get(url, httpOptions).pipe(
-       tap(res => console.log("data", res)),
+       tap(res => {
+         console.log("data", res)
+        }),
        map(res => res['data']),
+
        catchError(
-         this.handleError('Owner company retrieve failed.')
+         this.handleError('Owner company retrieve failed.', 'Error', '/create-company')
        )
      )
    }

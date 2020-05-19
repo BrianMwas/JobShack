@@ -36,4 +36,10 @@ export class ApplicationdetailComponent implements OnInit {
       console.info("error", error);
     })
   }
+
+  acceptApplicant() {
+    let status = 'accepted';
+
+    
+  }
 }

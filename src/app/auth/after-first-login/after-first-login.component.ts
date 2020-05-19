@@ -51,22 +51,23 @@ export class AfterFirstLoginComponent implements OnInit {
 
     this.userService.addUserProfile(this.userId, this.profileForm.value).subscribe(
       (data) => {
-        console.log("data", data)
+        console.log("data", data);
       },
       (error) => {
         // this.profileForm.reset();
         console.log("error", error)
-
       },
       () => {
-        this.profileForm.reset()
-        if(this.profileForm.invalid) {
-          return;
-        }
+        console.log("person");
+        
         if (this.profileForm.get("role").value == "employer") {
+          console.log("routing to the company");
+          
           this.router.navigate(['create-company'])
+          this.profileForm.reset()
         } else {
           this.router.navigate(['dashboard'])
+          this.profileForm.reset()
           // console.log("profileForm", this.profileForm.value)
         }
       }

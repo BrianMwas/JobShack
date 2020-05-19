@@ -18,7 +18,12 @@ export class CompanyResolverService implements Resolve<any> {
   company;
   resolve(): Observable<any> {
     this.store.select(store => store.authUserProfile.userProfile).subscribe(res => {
-      console.log("profile", res)
+      console.log("res type", typeof res);
+      console.log("company profile", res);
+      
+      if(!res) {
+        this.router.navigateByUrl('/create-profile')
+      }
       
       if(res.role == "employer") {
         this.company = true

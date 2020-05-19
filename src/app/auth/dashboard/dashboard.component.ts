@@ -53,6 +53,23 @@ export class DashboardComponent implements OnInit {
 	})
 
 	ngOnInit() {
+		this.store.select(store => store.authUserProfile)
+			.subscribe(
+					(res) => {
+						this.userProfile = res.userProfile;
+						
+						if(!res.userProfile) {
+							this.router.navigateByUrl('/create-profile')
+						}
+					},
+					(err) => {
+						console.warn("error", err)
+					}, 
+					() => {
+						console.info("done")
+					}
+				)
+
 		this.pForm.statusChanges.subscribe(res => {
 			console.info("res", res)
 			if(res == 'VALID') {
@@ -87,27 +104,6 @@ export class DashboardComponent implements OnInit {
 				}
 			)
 		
-		
-		
-			this.store.select(store => store.authUserProfile)
-			.subscribe(
-					(res) => {
-						this.userProfile = res.userProfile
-						
-						if(!res.userProfile) {
-							this.router.navigateByUrl('/create-profile')
-						}
-					},
-					(err) => {
-						console.warn("error", err)
-					}, 
-					() => {
-						console.info("done")
-					}
-				)
-	
-
-
 			this.populateProfile()
 			
 	}
@@ -142,8 +138,12 @@ export class DashboardComponent implements OnInit {
 	}
 
 	populateProfile() {
-		this.pForm.get('username').setValue(this.userProfile.username);
-		this.pForm.get('description').setValue(this.userProfile.description)
-		this.pForm.get('telephone').setValue(this.userProfile.telephone)
+		if(this.userProfile == null) {
+			this.router.initialNavigation()
+		} else {
+			this.pForm.get('username').setValue(this.userProfile.username);
+			this.pForm.get('description').setValue(this.userProfile.description)
+			this.pForm.get('telephone').setValue(this.userProfile.telephone)
+		}
 	}
 }

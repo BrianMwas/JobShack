@@ -81,8 +81,8 @@ export class UserService {
     // return this.http.post(url, profile, httpOptions)
     .pipe(
         map(res => { 
-          res['data']
           console.log("res", res)
+          return res['data']
         }),
         catchError(
           this.handleError('postProfile'))
@@ -97,5 +97,4 @@ export class UserService {
       catchError(this.handleError('profile update failed'))
     )
   }
-	
 }
