@@ -59,13 +59,15 @@ export class homeComponent implements OnInit {
 
 
   ngOnInit() {
-    this.logJobs(this.store.select(store => store.jobs))    
+    this.logJobs(this.store.select(store => store.jobs))
     this.loadingJobs = this.store.select(store => store.jobs.loading)
     this.fileStackService.init('YOUR_API_KEY');
   }
 
   logJobs(jobs: any) {
-    jobs.subscribe(log => this.allJobs = log['jobs'])
+    jobs.subscribe(log => {
+      console.log("log", log)
+      this.allJobs = log['jobs']})
   }
 
   changeCountry(e) {
@@ -97,7 +99,7 @@ export class homeComponent implements OnInit {
     }
 
     let q = Object.keys(searchObj).map(key => key + "=" + searchObj[key]).join("&");
-    
+
     if(q.length > 0) {
       // console.log("search", q)
       this.router.navigate(['/categories'], { queryParams: { query: q } })

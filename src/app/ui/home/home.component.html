@@ -27,18 +27,19 @@
 				<div class="loading radar"></div>
 			</ng-container>
 			<ng-template #jobsLoaded>
-				
-				<div *ngIf="allJobs">
+
+				<div *ngIf="allJobs.length > 0">
 					<app-joblist [jobs]="allJobs | paginate:{itemsPerPage: 3, currentPage:p}"></app-joblist>
-				</div>
-				<div id="pagination">
-					<pagination-controls (pageChange)="p=$event"></pagination-controls>
-				</div>   
+          <div id="pagination">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+          </div>
+        </div>
+
 				<div *ngIf="allJobs.length <= 0">
 					<h6>No jobs posted yet</h6>
 				</div>
 			</ng-template>
-			
+
 		</div>
 
 		<div class="resume" fxHide.lt-md fxFlex="40%">

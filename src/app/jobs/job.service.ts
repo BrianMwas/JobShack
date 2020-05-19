@@ -31,9 +31,12 @@ export class JobService {
 
   private baseUrl = environment.baseUrl;
 
+
+
   constructor(private http: HttpClient, private authService: NbAuthService) {
     this.authService.getToken()
     .subscribe(res=> {
+      console.log("baseUrl", this.baseUrl)
       httpOptions.headers = httpOptions.headers.set('authorization', res['token'])
     })
    }

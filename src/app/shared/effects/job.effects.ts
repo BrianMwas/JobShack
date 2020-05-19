@@ -13,8 +13,12 @@ export class JobEffects {
     loadJobs$ = createEffect(() => this.actions$.pipe(
         ofType(featureActions.AllJobsLoading),
         concatMap(() => this.jobService.getJobs()
+
             .pipe(
-                map(res => featureActions.AllJobs({ payload: res.data })),
+                tap(res => console.log("res res", res)),
+                map(res =>
+                  res.success == false ? featureActions.AllJobs({ payload: [] }) : featureActions.AllJobs({ payload: res.data })
+                  ),
                 catchError(error => of(featureActions.AllJobsFailure({ payload: error})))
             )
         )
@@ -29,7 +33,7 @@ export class JobEffects {
                 catchError(err => of(JobActions.loadJobFailed(err)))
             )
         })
-        
+
     ))
 
     constructor (private jobService: JobService, private actions$ : Actions) {}
