@@ -1,5 +1,5 @@
 :host {
-	width: 80%;
+	width: 90%;
 	margin: auto;
 	display: flex;
 	flex-direction: column;
@@ -12,20 +12,25 @@
 
 	.process {
 		display: flex;
-		flex-direction: row;
-		line-height: 1.5;
+		flex-direction: row wrap;
+    line-height: 1.5;
+    margin-bottom: 2em;
 
 		@media screen and (max-width: 480px) {
 			flex-direction: column;
 		}
 
 		.process-img {
-			height: 350px;
-			width: 350px;
-			margin-top: 2em;
-			margin-left: 4em;
 
-			@media screen and (max-width: 480px) {
+      // margin-top: 2em
+      margin: 2em auto 0;
+
+
+      img {
+        max-width: 290px !important;
+      }
+
+			@media screen and (max-width: 680px) {
 				margin: 0 auto;
 			}
 		}
