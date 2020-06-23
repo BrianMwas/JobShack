@@ -17,7 +17,7 @@
             <div fxLayout="row" fxLayoutAlign="space-between">
               <h2>{{ job.title }}</h2>
             </div>
-            <small><span class="text-primary">{{ job.applications.length }}</span> application(s) made</small>
+            <small><span class="text-primary">{{ job.applications }}</span> application(s) made</small>
           </nb-card-header>
           <nb-card-body>
             <div class="summary">
@@ -34,7 +34,7 @@
           <nb-card-footer>
             <div class="actions">
                 <button
-                *ngIf="!loggedIn | async"
+                *ngIf="!loggedIn"
                 nbTooltopStatus="secondary"
                 nbTooltipTrigger="hover"
                 nbTooltipIcon="alert-triangle-outline"

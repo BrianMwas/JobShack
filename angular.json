@@ -129,7 +129,7 @@
           "builder": "@netlify-builder/deploy:deploy",
           "options": {
             "outputPath": "dist/jobshack",
-            "netlifyToken": "59255f291e0d8de41d242a99dbd4d141088e15fc38ceb64df03b195f4465d719",
+            "netlifyToken": "22c7b394da8f2e569e01d49d906d8e78676cbd8bb65e22effbd99f1f1ea74c2c",
             "siteId": "d8e496b5-fbaf-4e36-bfec-2673887b57d6"
           }
         }

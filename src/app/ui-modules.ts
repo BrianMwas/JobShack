@@ -108,8 +108,6 @@ export const auth = [
             NbPasswordAuthStrategy.setup({
                 // Alias to the strategy to dynamically mention it later. Allows multiple strategy configurations in one app
                 name: 'email',
-
-
                 token: {
                     class: NbAuthJWTToken,
                     key: 'token'

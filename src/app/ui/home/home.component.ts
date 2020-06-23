@@ -27,12 +27,15 @@ import { SearchService } from '../search.service';
   styleUrls: ['./home.component.scss']
 })
 export class homeComponent implements OnInit {
+  p: number = 1
 
   @Output()
   initJobs: Job[] = [];
 
   @Output()
   allJobs: Observable<Job[]>;
+
+  jobs: Job[]
 
   loadingJobs: Observable<Boolean>
 
@@ -59,15 +62,16 @@ export class homeComponent implements OnInit {
 
 
   ngOnInit() {
-    this.logJobs(this.store.select(store => store.jobs))
+    this.logJobs(this.store.select(store => store.jobs.jobs))
     this.loadingJobs = this.store.select(store => store.jobs.loading)
     this.fileStackService.init('YOUR_API_KEY');
+    this.allJobs.subscribe(js => {
+      this.jobs = js
+    })
   }
 
-  logJobs(jobs: any) {
-    jobs.subscribe(log => {
-      console.log("log", log)
-      this.allJobs = log['jobs']})
+  logJobs(jobs: Observable<Job[]>) {
+    this.allJobs = jobs
   }
 
   changeCountry(e) {

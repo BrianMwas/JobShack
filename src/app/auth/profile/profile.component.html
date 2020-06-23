@@ -30,7 +30,7 @@
       </ng-template>
     </nb-card-header>
     <nb-card-body>
-      <form *ngIf="qualifications.length > 0; else addNewQualification" #qualificationForm="ngForm" (ngSubmit)="logValues()">
+      <form *ngIf="qualifications.length > 0; else addNewQualification" #qualificationForm="ngForm">
         <section class="my-3" *ngFor="let quality of qualifications; let i = index;">
           <input name="id_{{i}}" type="hidden" [(ngModel)]="quality._id">
           <nb-select name="qualificationType_{{i}}" [(ngModel)]="quality.qualificationType" fullWidth
@@ -42,10 +42,10 @@
           <input name="institute_{{i}}" type="text" [(ngModel)]="quality.institute" nbInput fullWidth placeholder="Institute">
           <input name="startDate_{{i}}" [(ngModel)]="quality.startDate" fullWidth nbInput [nbDatepicker]="startDate"
             placeholder="Start date">
-          <nb-datepicker [min]="min" [max]="max" #startDate></nb-datepicker>
+          <nb-datepicker [min]="startMin" [max]="startMax" #startDate></nb-datepicker>
           <input name="endDate_{{i}}" [(ngModel)]="quality.endDate" fullWidth nbInput [nbDatepicker]="endDate"
             placeholder="End date">
-          <nb-datepicker [min]="quality.start" [max]="max" #endDate></nb-datepicker>
+          <nb-datepicker [min]="quality.start" [max]="startMax" #endDate></nb-datepicker>
 
           <!-- <input [nbDatepicker]="datepicker">
 				<nb-datepicker #datepicker></nb-datepicker> -->

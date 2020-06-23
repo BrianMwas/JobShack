@@ -28,14 +28,14 @@
 			</ng-container>
 			<ng-template #jobsLoaded>
 
-				<div *ngIf="allJobs.length > 0">
-					<app-joblist [jobs]="allJobs | paginate:{itemsPerPage: 3, currentPage:p}"></app-joblist>
+				<div *ngIf="jobs.length > 0">
+					<app-joblist [jobs]="jobs | paginate:{itemsPerPage: 3, currentPage: p }"></app-joblist>
           <div id="pagination">
             <pagination-controls (pageChange)="p=$event"></pagination-controls>
           </div>
         </div>
 
-				<div *ngIf="allJobs.length <= 0">
+				<div *ngIf="jobs.length <= 0">
 					<h6>No jobs posted yet</h6>
 				</div>
 			</ng-template>
