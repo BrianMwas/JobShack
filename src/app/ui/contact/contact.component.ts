@@ -24,14 +24,14 @@ export class ContactComponent implements OnInit {
 		this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.email],
-      message: ['', Validators.minLength(10)]
+      message: ['', Validators.minLength(5)]
     })
   }
 
   submit() {
     if(this.contactForm.valid) {
-      console.log("contact", this.contactForm.value)
-      this.toastrService.success("Thank you " + this.contactForm.get('name').value + ", we will get back to you", 'Thank you', { duration: 2000 })
+      let name = this.contactForm.value.name
+      this.toastrService.success("Thank you " + name + ", we will get back to you", 'Thank you', { duration: 2000 })
       this.contactForm.reset()
     }
   }

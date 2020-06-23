@@ -114,7 +114,7 @@ export const auth = [
                 },
                 baseEndpoint: environment.baseUrl,
                 login: {
-                    endpoint: "/auth/login",
+                    endpoint: "auth/login",
                     method: 'post',
                     redirect: {
                         success: "/home", // Redirect to dashboard on successful login
@@ -122,7 +122,7 @@ export const auth = [
                     }
                 },
                 register: {
-                    endpoint: "/auth/register",
+                    endpoint: "auth/register",
                     method: 'post',
                     redirect: {
                         success: '/auth/login',
